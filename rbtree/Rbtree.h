@@ -7,6 +7,7 @@
 #include <windows.h>
 #include <stdio.h>
 using namespace std;
+BOOL SetConsoleColor(WORD wAttributes);
 class Rbtree
 {
 public:
@@ -28,18 +29,26 @@ public:
 	{
 		if (node->color == RED)
 		{
-		
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
-			cout << "键是" << node->key << " 值是" << node->value << endl;
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
-			printf(" Default color.");
+			/*	cout << "键是" << node->key << " 值是" << node->value << endl;*/
+			cout << node->key << " ";
+			SetConsoleColor(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
 		}
-		putchar(10);
-	
-		
+
+		else
+			cout << node->key << " ";
 	}
 	void printByLevel(Node* node)const;
 };
+BOOL SetConsoleColor(WORD wAttributes)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (hConsole == INVALID_HANDLE_VALUE)
+		return FALSE;
+
+	return SetConsoleTextAttribute(hConsole, wAttributes);
+}
 void Rbtree::printByLevel(Node* node)const
 {
 	vector<Node*> oneLevel;
@@ -56,6 +65,7 @@ void Rbtree::printByLevel(Node* node)const
 			if (x->rightChild != nullptr)
 				twoLevel.push_back(x->rightChild);
 		}
+		cout << endl;
 		oneLevel = twoLevel;
 		twoLevel.clear();
 	}
