@@ -22,6 +22,7 @@ public:
 
 	Node* leftChild;
 	Node* rightChild;
+	//定义一下颜色，红黑树 01树，红用color=0表示；黑用color=1表示；
 	bool color;
 	int key;
 	int value;
@@ -33,11 +34,11 @@ public:
 	
 };
 
-Node::Node(int key):key(key),leftChild(nullptr),rightChild(nullptr),value(key),color(BLACK)
+Node::Node(int key):key(key),leftChild(nullptr),rightChild(nullptr),value(key),color(RED)
 {
 
 }
-Node::Node():leftChild(nullptr),rightChild(nullptr),color(BLACK)
+Node::Node():leftChild(nullptr),rightChild(nullptr),color(RED)
 {
 	
 }

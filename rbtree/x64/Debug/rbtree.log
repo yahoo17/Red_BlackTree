@@ -1,2 +1,3 @@
 ﻿  main.cpp
+C:\Users\DELL\Desktop\gitLB\Red_BlackTree\rbtree\Rbtree.h(132): warning C4715: “Rbtree::findFather”: 不是所有的控件路径都返回值
   rbtree.vcxproj -> C:\Users\DELL\Desktop\gitLB\Red_BlackTree\rbtree\x64\Debug\rbtree.exe
