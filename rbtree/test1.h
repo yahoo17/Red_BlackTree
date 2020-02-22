@@ -13,15 +13,14 @@ void test5()
 	test2.insert(9, test2.m_root);
 	test2.insert(8, test2.m_root);
 	test2.insert(11, test2.m_root);
+	test2.insert(13, test2.m_root);
+	test2.insert(1, test2.m_root);
+	test2.insert(3, test2.m_root);
+	test2.insert(14, test2.m_root);
+	cout << "ÖĞĞò±éÀú£º" << endl;
 	test2.printIn_order(test2.m_root);
+	cout << endl;
 	test2.printByLevel(test2.m_root, 5);
-	
-	
-	
-	//test2.printIn_order(test2.m_root);
-	//test2.printByLevel(test2.m_root, 5);
-	//test2.insert(12, test2.m_root);
-	
 
 	
 }

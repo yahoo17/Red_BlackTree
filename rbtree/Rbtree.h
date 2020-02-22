@@ -181,7 +181,7 @@ void Rbtree::insertFixUp(Node* node,Node * root)
 	② 情况说明：被插入的节点的父节点是黑色。
       处理方法：什么也不需要做。节点被插入后，仍然是红黑树。
 	③ 情况说明：被插入的节点的父节点是红色。
-      处理方法：分三种情况
+      处理方法：分六种情况
 	  */
 
 	//第一种情况，被插入的节点是根节点	
@@ -190,28 +190,46 @@ void Rbtree::insertFixUp(Node* node,Node * root)
 		node->color = BLACK;
 		return;
 	}
+	//情况二
+	Node* father = nullptr;
+	father = findFather(node->key, root);
+	if (father->color == BLACK)
+		return;
+
 	Node* uncle = nullptr;
 	Node* grandfather = nullptr;
-	Node * father = nullptr;
-	findFatherAndUncle(node->key, root, father,uncle,grandfather);
-	//情况二
 
-	if (father->color ==BLACK)
-		return;
+	findFatherAndUncle(node->key, root, father,uncle,grandfather);
 	
 	
-	//父亲红色 叔叔黑色的两种情况
-	else if (father->color == RED && (uncle==nullptr||uncle->color == BLACK)&&father->leftChild==node)
+	//父亲红色 叔叔黑色的四种情况
+	//“ /”这种形状
+	if (father->color == RED && (uncle==nullptr||uncle->color == BLACK)&&father->leftChild==node&&father==grandfather->leftChild)
 	{
 		father->color = BLACK;
 		grandfather->color = RED;
 		rightRotate(grandfather, root);
 	}
-	//其实此时不用再判断了 但是为了以防错误，还是写一下
-	else if (father->color == RED && (uncle==nullptr||uncle->color == BLACK )&& father->rightChild == node)
+	//“\”这种形状		
+
+	else if (father->color == RED && (uncle == nullptr || uncle->color == BLACK) && father->rightChild == node && father == grandfather->rightChild)
+		{
+			father->color = BLACK;
+			grandfather->color = RED;
+			leftRotate(grandfather, root);
+		}
+	//三角形
+	else if (father->color == RED && (uncle==nullptr||uncle->color == BLACK )&& father->rightChild == node&&father==grandfather->leftChild)
 	{
 		
 		leftRotate(father, root);
+		insertFixUp(father, root);
+
+	}
+	else if (father->color == RED && (uncle == nullptr || uncle->color == BLACK) && father->leftChild == node && father == grandfather->rightChild)
+	{
+
+		rightRotate(father, root);
 		insertFixUp(father, root);
 
 	}
